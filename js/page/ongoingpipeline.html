@@ -1,0 +1,70 @@
+<div class="" ng-controller="myPipelineCtrl">
+    <div class="page-title">
+        
+        <div class="title_left">
+            <h3>
+                  进行中的项目流程发布列表  
+            </h3>
+                   
+        </div>            
+    </div>
+
+    <div class="">
+        <form ng-submit="search()">
+            <div class="title_right">
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group title_right ">
+                        <input type="text" ng-model="searchContent" class="form-control " placeholder="搜索关键字">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;搜索</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <label>显示&nbsp;&nbsp;<select size="1" style="width: 80px;padding: 6px;" ng-model="pageCount" ng-options="item as item for item in pageCountList" ng-change="getPipelineList(userName, pageCount, 1, 'running')"><option value=''>所有</option></select>&nbsp;&nbsp;条记录</label>
+            
+        <div class="row">
+            <div class="x_content" ng-init="getPipelineList(userName, pageCount, 1, 'running')">
+                <table class="table table-striped jambo_table">
+                    <thead>
+                        <tr class="headings" >
+                            <th class="column-title">ID</th>
+                            <th class="column-title">模块名称</th>
+                            <th class="column-title">Owner</th>
+                            <th class="column-title">Pipeline</th>
+                            <th class="column-title">进入发布</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr class="pointer" ng-repeat="item in myPipelineList">
+                            <td class="" align="middle">{{item.id}}</td>
+                            <td align="middle"><strong>{{item.module_name}}</strong></td>
+                            <td align="middle" ng-init="getPipelineOwner(item.pipeline_owner,$index)">
+                                <span ng-repeat="owner in owners[$index]">
+                                    <a href="mailto:{{owner}}@staff.weibo.com">{{owner}};</a>
+                                </span>
+                            </td>
+                            <td align="middle"><a ui-sref="pipelinedetail({state:'mypipeline',name:item.name,id:item.id,package_type:item.package_type,moduleId:item.module_id,moduleVersion:item.module_version})">{{item.name}}</a></td>
+                            <td class=" last" align="middle"><a ui-sref="pipelinedetail({state:'mypipeline',name:item.name,id:item.id,package_type:item.package_type,moduleId:item.module_id,moduleVersion:item.module_version})"><strong>进入发布</strong></a></td>
+                        </tr>
+                        <tr ng-if="totalNum == 0">
+                            <td valign="top" colspan="5" class="dataTables_empty" >-----无记录-----</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if ="totalNum != 0" class="dataTables_info">显示&nbsp;&nbsp;{{pageCount *(currentPage-1)+1}} - {{lastShowNum()}} of {{totalNum}}&nbsp;&nbsp;条记录
+                </div>
+                <div class="dataTables_paginate paging_full_numbers" ng-if ="pages != 1 && totalNum != 0">
+                    <ul class="pagination">
+                        <li class="{{disablePre()}}"><a tabindex="0" class="first paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="preBtn && getPipelineList(userName,pageCount,1,'running')"><strong>第一页</strong></a></li>
+                        <li ng-if = "currentPage != 1"><a tabindex="0" class=" paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="preBtn && getPipelineList(userName,pageCount,currentPage-1,'running')"><span aria-hidden="true"><strong>前一页</strong></span></a></li>
+                        <li ng-repeat="item in showPages track by $index"><a ng-class="getActivePage(item) " tabindex="0" href="javascript:void(0)" ng-click="currentPage != item && getPipelineList(userName,pageCount,item,'running')"><strong>{{item}}</strong></a></li>
+                        <li ng-if = "currentPage != pages"><a tabindex="0" class="paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="nextBtn && getPipelineList(userName,pageCount,currentPage + 1,'running')"><span aria-hidden="true"><strong>后一页</strong></span></a></li>
+                        <li class="{{disableNext()}}"><a tabindex="0" href="javascript:void(0)" ng-click="nextBtn && getPipelineList(userName,pageCount,pages,'running')"><span aria-hidden="true"><strong>最后一页</strong></span></a></li>
+                    </ul>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

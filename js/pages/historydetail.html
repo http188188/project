@@ -1,0 +1,46 @@
+<div class="panel-body" ng-controller="historyDetailCtrl">
+    <div class="row col-md-12">
+        <div class="col-md-1">
+            <div class="row row-c">
+                <span class="label label-primary">已启动</span>
+            </div>
+            <div class="row">
+                <img ng-src="{{baseUrl}}images/pipeline_true.png" />
+            </div>
+        </div>
+
+        <div ng-repeat="item in historyFlow">
+            <div class="col-md-1 col-md-1-s" ng-class="selectLine($index+1)">
+                <div class="row row-s">
+                    <img width="40px" ng-src="{{baseUrl}}images/to_{{item.status}}.png" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="row">
+                    <span class="label label-{{nodeStatus[item.status].style}}">{{nodeStatus[item.status].text}}</span>
+                </div>
+                
+                <div class="row">
+                    <a href="javascript:void(0)" title="{{showTips(item)}}" ng-click="showLog(item)"><img width="72px" ng-src="{{baseUrl}}images/node_{{item.status}}.png" /></a>
+                </div>
+                
+                <div class="row">
+                    <span title="{{item.name}}" class="label label-warning">{{getNodeName(item.name)}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1 col-md-1-s" ng-class="historyEndNodePosition()">
+            <div class="row row-s">
+                <img width="40px" ng-src="{{baseUrl}}images/to_pass.png" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row row-c"><span class="label label-warning">结束</span></div>
+            <div class="row"><img ng-src="{{baseUrl}}images/pipeline_{{historyStatus}}.png" /></div>
+        </div>
+        <div class="row loading" ng-if="showSpinner">
+            <div spinner-loading></div>
+        </div>
+    </div>
+</div>

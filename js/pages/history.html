@@ -1,0 +1,43 @@
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12" ng-init="getHistoryList(moduleId, pageCount, 1)">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr class="info">
+                        <th>ID</th>
+                        <th>状态</th>
+                        <th>Pipelinie</th>                        
+                        <th>上次发布时间</th>
+                        <th>版本</th>
+                        <th>回滚</th>
+                    </tr>
+                    <tr ng-repeat="item in historyList">
+                        <td>{{item.piplineCase.id}}</td>
+                        <td><span class="label label-{{item.piplineCase.status == 'fail' ? 'danger': 'success'}}">{{item.piplineCase.status}}</span></td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.piplineCase.end_time}}</td>
+                        <td><a ui-sref="historydetail({pipelineCaseId:item.piplineCase.id})">{{item.piplineCase.version}}</a></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody id="detail"></tbody>
+            </table>
+            <div class="row loading" ng-if="showSpinner">
+                <div spinner-loading></div>
+            </div>
+            <div class="row col-md-10 col-md-offset-5" ng-if="totalNum == 0">
+                <h5><strong>-----无记录-----</strong></h5>
+            </div>
+        </div>
+    </div>
+    <p class="text-right">
+        <span><strong>共计<font color="red">{{totalNum}}</font>条记录</strong></span>
+    </p>
+    <div class="col-md-10 col-md-offset-2">
+        <ul class="pagination" ng-if="pages > 1">
+            <li class="{{disablePre()}}"><a href="javascript:void(0)" ng-click="preBtn && getHistoryList(moduleId,pageCount,1)"><span aria-hidden="true"><strong>第一页</strong></span></a></li>
+            <li ng-repeat="item in pageNumbers track by $index" ng-class="getActivePage(item)"><a href="javascript:void(0)" ng-click="currentPage != item && getHistoryList(moduleId,pageCount,item)"><strong>{{item}}</strong></a></li>
+            <li class="{{disableNext()}}"><a href="javascript:void(0)" ng-click="nextBtn && getHistoryList(moduleId,pageCount,pages)"><span aria-hidden="true"><strong>最后一页</strong></span></a></li>
+        </ul>
+    </div>
+</div>

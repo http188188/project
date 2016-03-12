@@ -1,0 +1,55 @@
+<div ng-controller="permissionCtrl">
+    <h3>Admin Permission</h3>
+    <div class="row">
+        <div class="col-md-5">
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>Name</th>
+                    <th>Group</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat="user in adminList">
+                    <td>
+                        <a href="javascript:void(0)" editable-text="user.name" e-required onbeforesave="updatePermission({'id':user.id,'name':$data})">{{ user.name }}</a>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)" editable-text="user.group" e-required onbeforesave="updatePermission({'id':user.id,'group':$data})">{{ user.group }}</a>
+                    </td>
+                    <td align='middle'>
+                        <button class="btn btn-danger" ng-click="confirmDeletion(user)">Delete&nbsp;&nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row col-md-5" ng-if="spinnerShow">
+        <div spinner-loading></div>
+    </div>
+
+    <div class="row col-md-12">
+        <button class="btn btn-primary" ng-click="hideBtn()" ng-show="showAddBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;Add Admin User</button>
+    </div>
+    <div class="row" ng-show="!showAddBtn">
+        <form name="userForm" novalidate ng-submit="addAdmin(addUser)">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Username" required ng-model="addUser.name"/>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Group" required ng-model="addUser.group"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Add</button>
+                <button type="button" class="btn btn-danger" ng-click="showBtn()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 
+            <tr ng-repeat="index in rangeList()">
+                <td class="adminTd" ng-repeat="item in adminList | range:index:tableLineCount"><a href="javascript:void(0)" editable-text="item.name" e-required onbeforesave="updatePermission($data, item.id)"><font size = 4>{{ item.name }}</font></a></td>
+            </tr>
+-->            

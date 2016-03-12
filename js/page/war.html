@@ -1,0 +1,16 @@
+<div alert-box="danger" message="formOfWar" ng-if="showAlert.formOfWar"></div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label for="waraddr"><span id="labelwar" class="label" ng-class="parameter.waraddr.$valid?'label-primary':'label-danger'">War包地址</span></label>
+            <input class="form-control" id="waraddr" name="waraddr" type="text" placeholder="输入War包地址，不可为空" required ng-model="data.warAddess" ng-disabled="data.disableStart" />
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="form-group">
+            <label for="rollback"><span id="labelroll" class="label" ng-class="parameter.rollback.$valid?'label-primary':'label-danger'">回滚包地址</span></label>
+            <input class="form-control" id="rollback" name="rollback" type="text" placeholder="输入回滚包地址，不可为空" required ng-model="data.rollback" ng-disabled="data.disableStart"/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div alert-box="danger" message="formOfSource" ng-if="showAlert.formOfSource"></div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label for="version">
+                <span class="label label-primary">Version</span>
+            </label>
+            <input class="form-control" id="version" name="version" type="text" placeholder="version，不可为空" ng-model="data.sourceVersion" required />
+        </div>
+    </div>
+
+    <div class="col-md-5" ng-if="false">
+        <div class="form-group">
+            <label for="devversion">
+                <span class="label label-primary">Dev_Version</span>
+            </label>
+            <input class="form-control" id="devversion" name="devversion" type="text" placeholder="Dev_Version，不可为空" disabled required value="{{sourceDevVersion}}" />
+        </div>
+    </div>
+</div>

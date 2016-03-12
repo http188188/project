@@ -1,0 +1,36 @@
+<div class="col-md-6" ng-controller="modulePermissionCtrl">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>{{permissionGroup.name}}</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in permissionGroup.user">
+                <td>
+                    <a href="javascript:void(0)" editable-text="user.name" e-required onbeforesave="updatePermission({'id':user.id,'name':$data})">{{ user.name }}</a>
+                </td>
+                <td align='middle'>
+                    <button class="btn btn-success" ng-click="showAddForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                    <button class="btn btn-danger" ng-click="confirmDeletion(user,permissionGroup.id,permissionGroup)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                </td>
+            </tr>
+            <tr ng-if="showAddBtn">
+                <td colspan=2>
+                    <form name="userForm" novalidate ng-submit="addUser(addGroupUser,permissionGroup.id,permissionGroup)">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Username" required ng-model="addGroupUser"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Add</button>
+                            <button type="button" class="btn btn-danger" ng-click="hideAddForm()">Cancel</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,15 @@
+{#foreach $T as record}
+<div class="col-md-4">
+  <div class="panel panel-info">
+    <div class="panel-heading">{$T.record.name}</div>
+    <div class="panel-body">
+        <div class="col-md-6">
+        <button id="pass{$T.record.id}" type="button" disabled="disabled" class="btn btn-pass btn-primary btn-block">测试通过</button>
+      </div>
+      <div class="col-md-6">
+        <button id="fail{$T.record.id}" type="button" disabled="disabled" class="btn btn-fail btn-primary btn-block">测试不通过</button>
+      </div>
+    </div>
+  </div>
+</div>
+{#/for}

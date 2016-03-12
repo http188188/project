@@ -1,0 +1,163 @@
+/*background color setting
+body{background-color:#eee}
+*/
+/*navigation bar setting*/
+.navbar-inverse
+{
+    margin-bottom: 0px;
+    padding: 0px 0px;
+}
+
+hr{
+    border: 0px;
+    margin-top: 0px;
+}
+
+select{
+  margin-bottom: 10px;
+}
+
+#logo{
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 80px;
+}
+
+.contact{
+    padding-top: 0px;
+    padding-bottom: 0px; 
+}
+
+.adminLabel{
+  margin-left: 2px;
+  margin-right: 3px;
+}
+
+.adminTd{
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 150px;
+}
+
+/*loading animation css */
+.spinner {
+  margin: 0px auto 0;
+  width: 150px;
+  text-align: center;
+}
+
+.loading{
+  position:fixed;
+  left:450px;
+  bottom:300px;
+  width:400px;
+}
+ 
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #428BCA;
+ 
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+ 
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+ 
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+ 
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+ 
+@keyframes bouncedelay {
+  0%, 80%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+/*icon of pipeline setting}*/
+.col-md-1{
+    /*width:90px;*/
+    padding-left:9px;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.col-md-1-t{
+    padding-top: 0px;
+    padding-left:0px;
+}
+
+th{
+    text-align:center;
+}
+
+.col-md-1-s{
+    width:50px;
+}
+
+.row-s{
+    padding:40px 0px;
+}
+#selection{
+    padding-left:30px;
+    padding-top: 35px;
+}
+.butsel{
+    margin-bottom: 3px;
+}
+.selbut{
+    width:35px;
+}
+.panelbox{
+  padding-top: 10px;
+}
+
+
+.wide-modal {
+     width: 100%;
+}
+
+.modal-content {
+    width: 100%;
+}
+.modal-body {
+    max-height: 350px;
+    overflow-y: auto;
+}
+.logcontent{
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+.ngdialog-content {
+    width: 800px !important;
+    padding: 0px 0px 0px 0px !important;
+    top: -100px;
+    /*position: static;*/
+}
+.modal-footer{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nopadding{
+    padding:0px 0px 0px 0px;
+}

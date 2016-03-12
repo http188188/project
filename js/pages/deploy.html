@@ -1,0 +1,32 @@
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="select1"><span class="label label-primary">可选部署类型</span></label>
+                <select size=6 multiple="multiple" id="select1" ng-model="data.candidate" class="form-control" ng-options="item for item in candidateDeployedType" ng-disabled="data.disableStart">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2" id="selection">
+            <div class="row"><div class="col-md-12 butsel">
+                <span id="add"><input ng-click="addRemove(data.candidate,selectedDeployedType,candidateDeployedType)" type="button" class="btn btn-primary btn-xs selbut" ng-disabled="disBtn(candidateDeployedType,data.candidate.length)" value=">"/></span></div>
+            </div>
+            <div class="row"><div class="col-md-12 butsel">
+                <span id="add_all"><input ng-click="addRemoveAll(candidateDeployedType,selectedDeployedType)" type="button" class="btn btn-primary btn-xs selbut" ng-disabled="disBtn(candidateDeployedType,1)" value=">>"/></span></div>
+            </div>
+            <div class="row"><div class="col-md-12 butsel">
+                <span id="remove"><input ng-click="addRemove(data.deployed,candidateDeployedType,selectedDeployedType)" type="button" class="btn btn-primary btn-xs selbut" ng-disabled="disBtn(selectedDeployedType,data.deployed.length)" value="<"/></span></div>
+            </div>
+            <div class="row"><div class="col-md-12 butsel">
+                <span id="remove_all"><input ng-click="addRemoveAll(selectedDeployedType,candidateDeployedType)" type="button" class="btn btn-primary btn-xs selbut" ng-disabled="disBtn(selectedDeployedType,1)" value="<<"/></span></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="select2"><span class="label" ng-class="styleOfSelectedDeployType()">已选部署类型</span></label>
+                <select size=6 multiple="multiple" id="select2" ng-model="data.deployed" class="form-control" ng-options="item for item in selectedDeployedType" ng-disabled="data.disableStart">
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

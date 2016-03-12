@@ -1,0 +1,97 @@
+<div class="panel panel-primary" ng-controller="pipelineCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">Pipleline</h3>
+    </div>
+    <div class="panel-body">
+        <!-- select which pipeline module -->
+        <div class="row">
+            <div class="col-md-6">
+                <select id="project" class="form-control" ng-model="selectedValue" ng-options="item.moduleId as item.moduleName for item in projectList" ng-change="listPipelineList()">
+                    <option value="">----------------------请选择Pipeline项目----------------------</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- alert error if could not get pipeline -->
+        <div id="palertBox" class="row" style="display:none">
+            <div class="col-md-6">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <p>无法获取该模块Pipeline类型</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- pipeline table -->
+        <div class="row" id="type" ng-if="typeListShow()">
+            <div class="col-md-6">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="">
+                            <th width="50">ID</th>
+                            <th width="400">类型</th>
+                            <th width="100">查看</th>
+                        </tr>
+                        <tr ng-repeat="item in pipelineList">
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td align="middle"><button type='button' class='btn btn-primary btn-xs btn-block review' ng-click="createViewMap(item)">查看</button></td>
+                        </tr>
+                    </thead>
+                    <tbody id="detail"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div alert-box="danger" message="getPipeline" ng-if="showAlert.getPipeline"></div>
+
+        <div id="pipelineFlow" ng-if="typeListShow() && pipelineStatus.valid">
+            <form name="parameter">
+                <div ng-include="warOrSource()"></div>
+                <div class="row">
+                    <!-- <div ng-include="'js/pages/deploy.html'"></div> -->
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="comments"><span class="label label-primary">注释</span></label>
+                            <textarea rows=5 class="form-control" id="comments" placeholder="注释，可以为空" ng-model="data.comments" ng-disabled="data.disableStart"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- <div class="row"> -->
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="flow">流程</label>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-1">
+                    <div class="row row-c">
+                        <span id="startBtn" class="label label-{{nodeStatus[pipelineStatus.status].style}}">{{nodeStatus[pipelineStatus.status].start}}</span>
+                    </div>
+                    <div class="row">
+                        <a href="javascript:void(0);" ng-click="startPipeline(parameter.$valid)"><img ng-src="{{baseUrl}}images/pipeline_{{startImg(parameter.$valid)}}.png" /></a>
+                    </div>
+                </div>
+                
+                <!-- <div flow-map /> -->
+                <div ng-include="'js/pages/flow.html'"></div>
+
+                <div class="col-md-1 col-md-1-s" ng-class="endNodePosition()">
+                    <div class="row row-s">
+                        <img width="40px" ng-src="{{baseUrl}}images/to_{{endStatus()}}.png" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row row-c"><span class="label label-warning">结束</span></div>
+                    <div class="row"><img ng-src="{{baseUrl}}images/pipeline_{{pipelineStatus.status}}.png" /></div>
+                </div>
+            </div>
+
+            <div class="row col-md-12" ng-include="'js/pages/testbox.html'"></div>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>

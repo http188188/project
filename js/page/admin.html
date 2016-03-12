@@ -1,0 +1,14 @@
+<div ng-controller="adminCtrl">
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" ng-class="getMenuActive(item)" ng-repeat="item in adminMenu"><a ui-sref="{{item.url}}" ng-click="select(item)">{{item.name}}</a></li>
+    </ul>
+    <div class="col-md-10">
+        <div ui-view>
+            <div class="jumbotron text-center">
+                <h1>Administrator后台管理</h1>
+                <p>后台管理<span class="text-danger">功能</span>：</p>
+                <a ui-sref="{{item.url}}" ng-click="select(item)" ng-repeat="item in adminMenu" class="adminLabel btn {{item.btnCss}}">{{item.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>

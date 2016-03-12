@@ -1,0 +1,20 @@
+<div class="panel panel-primary" ng-controller="contactCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">联系我们</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-4" ng-repeat="item in scmUser">
+            <div class="panel panel-danger">
+                <div class="panel-heading"></div>
+                <div class="panel-body contact">
+                    <h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;{{item.name}}</h3>
+                    <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;&nbsp;{{item.extension_number}}</p>
+                    <p><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;{{item.telephone}}</p>
+                    <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;<a href="mailto:{{item.mail}}">{{item.mail}}</a></p>
+                    <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;{{item.location}}</p>
+                </div>
+                <div class="panel-footer">微博质量保证/配置管理</div>
+            </div>
+        </div>
+    </div>
+</div>

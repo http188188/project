@@ -1,0 +1,89 @@
+<div class="" ng-controller="moduleVersionCtrl">
+    <div class="page-title">
+        
+        <div class="title_left">
+            <h3>
+                  所有模块当前线上版本  
+            </h3>
+        </div>            
+    </div>
+
+    <div class="">
+        <form ng-submit="getModuleVersionList(pageCount,1,currentCategory)">
+            <div class="title_right">
+                <div class="col-md-4 col-sm-4 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group title_right ">
+                        <input type="text" ng-model="searchContent" class="form-control " placeholder="搜索关键字">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;搜索</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+        <div class="col-md-60 " ng-init="getCategory()">
+            <div class="btn-group btn-group-md" role="group" style="margin-bottom: 5px;">
+                <button type="button" ng-repeat="button in category" class="btn btn-{{categoryStyle[getIndex(button.id)]}}" ng-click="getCategoryList(button.id)">{{button.name}}</button>
+                <button type="button" class="btn btn-primary" ng-click="getModuleVersionList(pageCount, 1, '')">全部</button>
+            </div>
+        </div>
+        </br>
+        <label>显示&nbsp;&nbsp;<select size="1" style="width: 80px;padding: 6px;" ng-model="pageCount" ng-options="item as item for item in pageCountList" ng-change="getModuleVersionList(pageCount, 1, currentCategory)"><option value=''ng-click="getModuleVersionList(totalNum, 1, currentCategory)">所有</option></select>&nbsp;&nbsp;条记录</label>
+        <div class="row">
+            <div class="col-md-7" ng-init="getModuleVersionList(pageCount, 1, currentCategory)">
+                <table class="table table-striped jambo_table">
+                    <thead>
+                        <tr class="headings" >
+                            <th class="column-title">ID</th>
+                            <th class="column-title">模块名称</th>
+                            <th class="column-title">上线时间</th>
+                            <th class="column-title">操作人</th>
+                            <th class="column-title">代码统计</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr class="pointer" ng-repeat-start="item in moduleVersionList" ng-click="getModuleData(item)" onclick="javascript:void(0);">
+                            <td class="" align="middle">{{item.id}}</td>
+                            <td align="middle"><strong>{{item.name}}</strong></td>
+                            <td align="middle"><strong>{{item.update_version_time}}</strong></td>
+                            <td align="middle"><strong>{{item.operator}}</strong></td>
+                            <td align="middle">
+                            <a ng-click="(expand = !expand) && getModuleCode(item.id)" href="javascript:void(0);"><strong>代码统计</strong></a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat-end class="show-slide" ng-show="expand">
+                            <td colspan=6>
+                                <div ng-include="'js/page/statistic-code.html'"></div>
+                            </td>
+                        </tr>
+                        <tr ng-if="totalNum == 0">
+                            <td valign="top" colspan="5" class="dataTables_empty" >-----无记录-----
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-if ="totalNum != 0" class="dataTables_info">显示&nbsp;&nbsp;{{pageCount *(currentPage-1)+1}} - {{lastShowNum()}} of {{totalNum}}&nbsp;&nbsp;条记录
+                </div>
+                <div class="dataTables_paginate paging_full_numbers" ng-if ="pages != 1 && totalNum != 0">
+                    <ul class="pagination">
+                        <li class="{{disablePre()}}"><a tabindex="0" class="first paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="preBtn && getModuleVersionList(pageCount,1,currentCategory)"><strong>第一页</strong></a></li>
+                        <li ng-if = "currentPage != 1"><a tabindex="0" class=" paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="preBtn && getModuleVersionList(pageCount,currentPage-1,currentCategory)"><span aria-hidden="true"><strong>前一页</strong></span></a></li>
+                        <li ng-repeat="item in showPages track by $index"><a ng-class="getActivePage(item) " tabindex="0" href="javascript:void(0)" ng-click="currentPage != item && getModuleVersionList(pageCount,item,currentCategory)"><strong>{{item}}</strong></a></li>
+                        <li ng-if = "currentPage != pages"><a tabindex="0" class="paginate_button paginate_button_disabled" href="javascript:void(0)" ng-click="nextBtn && getModuleVersionList(pageCount,currentPage + 1,currentCategory)"><span aria-hidden="true"><strong>后一页</strong></span></a></li>
+                        <li class="{{disableNext()}}"><a tabindex="0" href="javascript:void(0)" ng-click="nextBtn && getModuleVersionList(pageCount,pages,currentCategory)"><span aria-hidden="true"><strong>最后一页</strong></span></a></li>
+                    </ul>
+                </div> 
+            </div>
+            <div class="col-md-4 row title_right">
+                <div id="chart">
+                    <h4>{{moduleName}}</h4>
+                    <div ng-if="showChart">当前线上版本:</div>
+                    <div class="label label-success">{{moduleVersion}}</div>
+                    <canvas id="bar" class="chart chart-bar" data="dataChart" series="series" labels="labels" legend="true"></canvas>
+                    <div ng-if="showChart" align="center">{{year}}年共计上线<span class="label label-primary">{{onlineTime}}</span>次,回滚<span class="label label-danger">{{rollbackTime}}</span>次</div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

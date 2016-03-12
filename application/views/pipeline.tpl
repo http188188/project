@@ -1,0 +1,272 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pipeline</title>
+        <link rel="stylesheet" href="<%$baseUrl%>/css/bootstrap.min.css">
+
+        <style>    
+        .col-md-1{
+            width:90px;
+            padding-left:9px;
+            text-align: center;
+        }
+        .col-md-1-s{
+            width:50px;
+        }
+        .row-s{
+            padding:40px 0px;
+        }
+        #selection{
+            padding-left:30px;
+            padding-top: 35px;
+        }
+        .butsel{
+            margin-bottom: 3px;
+        }
+        .selbut{
+            width:35px;
+        }
+        </style>
+
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">SCM</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Git</a></li>
+            <li><a href="#">SVN</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wiki <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Git</a></li>
+                <li><a href="#">SVN</a></li>                        
+                <li class="divider"></li>
+                <li><a href="#">Jenkins</a></li>
+                <li><a href="#">Quickbuild</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Others</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="查找内容">
+            </div>
+            <button type="submit" class="btn btn-primary">搜索</button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Pipeline</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quickbuild <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="#">PHP</a></li>
+                <li><a href="#">CSS</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Others</a></li>
+              </ul>
+            </li>
+            <li><a href="<%$baseUrl%>/test/logout">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Pipleline <small>Demo</small></h1>
+            </div>
+        </div>
+        
+        <!--select the pipeline type-->
+        <div class="row">
+            <div class="col-md-6">
+                <select id="project" class="form-control">
+                    <option value="0">--------------------------请选择--------------------------</option>
+                </select>
+            </div>
+        </div>
+
+        <!--alert when fail to get the pipeline type-->
+        <div id="palertBox" class="row" style="display:none">
+            <div class="col-md-6">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <p>无法获取该模块Pipeline类型</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="type" style="display:none">
+            <div class="col-md-6">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="">
+                            <th width="50">ID</th>
+                            <th width="250">类型</th>
+                            <th width="250">查看</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detail"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="pipealert" style="display:none">
+            <div class="col-md-6">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <!-- <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> -->
+                    <p>无法获取该Pipeline流程</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pipeline" style="display:none">
+            <div class="row" id="alertBox" style="display:none">
+                <div class="col-md-6">
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <!-- <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> -->
+                        <p>请正确输入War包地址，回滚包地址！(不可为空)</p>
+                    </div>
+                </div>
+            </div>
+            <div id="parameter" style="display:none">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="waraddr"><span id="labelwar" class="label label-primary">War包地址</span></label>
+                        <input class="form-control" id="waraddr" type="text" placeholder="输入War包地址，不可为空" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rollback"><span id="labelroll" class="label label-primary">回滚包地址</span></label>
+                        <input class="form-control" id="rollback" type="text" placeholder="输入回滚包地址，不可为空" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="select1"><span class="label label-primary">可选部署类型</span></label>
+                            <select size=5 multiple="multiple" id="select1" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="selection">
+                        <div class="row"><div class="col-md-12 butsel">
+                            <span id="add"><input type="button" class="btn btn-primary btn-xs selbut" value=">"/></span></div>
+                        </div>
+                        <div class="row"><div class="col-md-12 butsel">
+                            <span id="add_all"><input type="button" class="btn btn-primary btn-xs selbut" value=">>"/></span></div>
+                        </div>
+                        <div class="row"><div class="col-md-12 butsel">
+                            <span id="remove"><input type="button" class="btn btn-primary btn-xs selbut" value="<"/></span></div>
+                        </div>
+                        <div class="row"><div class="col-md-12 butsel">
+                            <span id="remove_all"><input type="button" class="btn btn-primary btn-xs selbut" value="<<"/></span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="select2"><span class="label label-primary">已选部署类型</span></label>
+                            <select size=5 multiple="multiple" id="select2" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="comments"><span class="label label-primary">注释</span></label>
+                        <textarea rows=5 class="form-control" id="comments" placeholder="注释，可以为空"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="startalert"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="flow">流程</label>
+                    <div id="flow"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row text-center" id="btns" style="display:none"></div>
+        <div class="row" id="flowlog" style="display:none">
+            <div class="col-md-12">
+                <label id="tabLog" for="logs">日志</label>
+                    <ul id="myTab" class="nav nav-tabs" role="tablist"></ul>
+                    <div id="myTabContent" class="tab-content"></div>
+                    <!--<textarea class="form-control" id="logs" readonly rows=10></textarea>
+
+
+                     <ul id="myTab" class="nav nav-tabs" role="tablist">
+                      <li class="active"><a href="#1" data-toggle="tab">Home</a></li>
+                      <li><a href="#2" data-toggle="tab">Profile</a></li>
+                    </ul>
+
+                    <div id="myTabContent" class="tab-content">
+                      <div role="tabpanel" class="tab-pane active in" id="1">
+                        <textarea class="form-control" readonly rows=10>ggg</textarea>
+                      </div>
+                      <div role="tabpanel" class="tab-pane " id="2">
+                        <textarea class="form-control" readonly rows=10>xxx</textarea>
+                      </div>
+                    </div> -->
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+<!-- 
+    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+    <div class="container">
+        <p></p>
+    </div>
+    </nav> 
+-->
+
+    </body>
+    <script type="text/javascript">
+        var baseUrl = "<%$baseUrl%>";
+    </script>                  
+    <script type="text/javascript" src="<%$baseUrl%>/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<%$baseUrl%>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%$baseUrl%>/js/interaction.js"></script>
+    <script type="text/javascript" src="<%$baseUrl%>/js/jquery-jtemplates.js"></script>
+</html>

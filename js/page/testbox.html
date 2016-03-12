@@ -1,0 +1,33 @@
+<div ng-repeat="item in data.flowMap | testBox track by $index">
+    <div class="col-md-3 panelbox" style="text-align:center;">
+        <div class="panel panel-info">
+            <div class="panel-heading">{{item.name}}</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <button type="button" ng-disabled="disableTestBox(item)" class="btn btn-pass btn-primary btn-block" ng-click="trigger(item,'success')">通过</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" ng-disabled="disableTestBox(item)" class="btn btn-fail btn-primary btn-block" ng-click="trigger(item,'fail')">不通过</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-repeat="item in data.flowMap | operationBox track by $index" ng-hide="hideTestBox(item)">
+    <div class="col-md-3 panelbox" style="text-align:center;">
+        <div class="panel panel-danger">
+            <div class="panel-heading">是否{{item.nextName}}</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-pass btn-primary btn-block" ng-click="trigger(item,'pass')">是</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button"class="btn btn-fail btn-primary btn-block" ng-click="trigger(item,'skip')">否</button>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ng-disabled="disableTestBox(item)"
+ ng-class="offsetRight($index)" -->

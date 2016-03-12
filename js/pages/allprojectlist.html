@@ -1,0 +1,67 @@
+<div class="panel panel-primary" ng-controller="myPipelineCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">所有项目流程发布列表</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <form ng-submit="search()">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchContent" class="form-control" placeholder="搜索关键字">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;搜索</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="col-md-1 col-md-1-t col-md-offset-2 text-right">
+                <h6><strong>每页显示</strong></h6>
+            </div>
+            <div class="col-md-1 col-md-1-t">
+                <select class="form-control" ng-model="pageCount" ng-options="item as item for item in pageCountList" ng-change="getPipelineList(userName, pageCount, 1, '')">
+                    <option value=''>All</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8" ng-init="getPipelineList(userName, pageCount, 1, '')">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="info">
+                            <th>ID</th>
+                            <th>模块名称</th>
+                            <th>Pipeline</th>
+                            <th>进入发布</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in myPipelineList">
+                            <td>{{item.id}}</td>
+                            <td><strong>{{item.module_name}}</strong></td>
+                            <td><a ui-sref="pipelinedetail({state:'mypipeline',name:item.name,id:item.id,package_type:item.package_type,moduleId:item.module_id,moduleVersion:item.module_version})">{{item.name}}</a></td>
+                            <td align="middle"><a ui-sref="pipelinedetail({state:'mypipeline',name:item.name,id:item.id,package_type:item.package_type,moduleId:item.module_id,moduleVersion:item.module_version})"><strong>进入发布</strong></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row loading" ng-if="showSpinner">
+                    <div spinner-loading></div>
+                </div>
+                <div class="row col-md-10 col-md-offset-5" ng-if="totalNum == 0">
+                    <h5><strong>-----无记录-----</strong></h5>
+                </div>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-2 col-md-offset-7">
+                <h6><strong>共计<font color="red">{{totalNum}}</font>条记录</strong></h6>
+            </div>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+            <ul class="pagination" ng-if="pages > 1">
+                <li class="{{disablePre()}}"><a href="javascript:void(0)" ng-click="preBtn && getPipelineList(userName,pageCount,1,'')"><span aria-hidden="true"><strong>第一页</strong></span></a></li>
+                <li ng-repeat="item in pageNumbers track by $index" ng-class="getActivePage(item)"><a href="javascript:void(0)" ng-click="currentPage != item && getPipelineList(userName,pageCount,item,'')"><strong>{{item}}</strong></a></li>
+                <li class="{{disableNext()}}"><a href="javascript:void(0)" ng-click="nextBtn && getPipelineList(userName,pageCount,pages,'')"><span aria-hidden="true"><strong>最后一页</strong></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

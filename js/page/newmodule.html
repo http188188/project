@@ -1,0 +1,225 @@
+<div class="panel panel-info" ng-controller="createModuleCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{getTitle()}}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row loading" ng-if="showSpinner">
+            <div spinner-loading></div>
+        </div>
+        <form name="parameter" ng-show="firstStep">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <label for="name">
+                            <span class="label label-primary" ng-class="parameter.name.$valid?'label-primary':'label-danger'">模块名称</span>
+                        </label>
+                        <input class="form-control" name="name" type="text" placeholder="模块名称不可为空" required ng-model="moduleName" ng-disabled="submitForm"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="codeType">
+                            <span class="label label-primary" ng-class="parameter.codeType.$valid?'label-primary':'label-danger'">代码类型</span>
+                        </label>
+                        <select name="codeType" class="form-control text-right" ng-model="codeType" ng-options="item as item for item in codeTypeList" required ng-disabled="submitForm">
+                            <option value="">------代码类型------</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="owner">
+                            <span class="label label-primary" ng-class="parameter.owner.$valid?'label-primary':'label-danger'">Module Owner</span>
+                        </label>
+                        <input class="form-control" name="owner" type="text" placeholder="Module Owner不可为空" required ng-model="moduleOwner" ng-disabled="submitForm"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="versionControl">
+                            <span class="label label-primary" ng-class="parameter.versionControl.$valid?'label-primary':'label-danger'">版本控制</span>
+                        </label>
+                        <select name="versionControl" class="form-control text-right" ng-model="versionControl" ng-options="item as item for item in versionControlList" required ng-disabled="submitForm">
+                            <option value="">-选择版本控制类型-</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3"> 
+                        <label for="prefix">
+                            <span class="label label-primary" ng-class="parameter.prefix.$valid?'label-primary':'label-danger'">版本前辍</span>
+                        </label>
+                        <input class="form-control" name="prefix" type="text" placeholder="版本前辍不可为空" required ng-model="prefix" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="pushList">
+                            <span class="label label-primary" ng-class="parameter.pushList.$valid?'label-primary':'label-danger'">推送列表</span>
+                        </label>
+                        <input class="form-control" name="pushList" type="text" placeholder="推送列表不可为空" required ng-model="pushList" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="onlineUrl">
+                            <span class="label label-primary" ng-class="parameter.onlineUrl.$valid?'label-primary':'label-danger'">上线URL</span>
+                        </label>
+                        <input class="form-control" name="onlineUrl" type="text" placeholder="上线URL不可为空" required ng-model="onlineUrl" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="qbUrl">
+                            <span class="label label-primary" ng-class="parameter.qbUrl.$valid?'label-primary':'label-danger'">QuickBuild URL</span>
+                        </label>
+                        <input class="form-control" name="qbUrl" type="text" placeholder="QuickBuild URL不可为空" required ng-model="qbUrl" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="codeUrl">
+                            <span class="label label-primary" ng-class="parameter.codeUrl.$valid?'label-primary':'label-danger'">Code URL</span>
+                        </label>
+                        <input class="form-control" name="codeUrl" type="text" placeholder="Code URL不可为空" required ng-model="codeUrl" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="tagUrl">
+                            <span class="label label-primary" ng-class="parameter.tagUrl.$valid?'label-primary':'label-danger'">Tag URL</span>
+                        </label>
+                        <input class="form-control" name="tagUrl" type="text" placeholder="Tag URL不可为空" required ng-model="tagUrl" ng-disabled="submitForm"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div ng-show="secondStep">
+            <form name="parameter2">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pipelineName">
+                                <span class="label label-primary" ng-class="parameter2.pipelineName.$valid?'label-primary':'label-danger'">Pipeline Name</span>
+                            </label>
+                            <input class="form-control" name="pipelineName" type="text" placeholder="Pipeline Name不能为空" required ng-model="pipelineName"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="pipelineType">
+                                <span class="label label-primary" ng-class="parameter2.pipelineType.$valid?'label-primary':'label-danger'">Pipeline Type</span>
+                            </label>
+                            <select name="pipelineType" class="form-control text-right" ng-model="pipelineType" ng-options="item as item for item in pipelineTypeList" required ng-disabled="submitForm">
+                                <option value="">------Pipeline Type------</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="packageType">
+                                <span class="label label-primary" ng-class="parameter2.packageType.$valid?'label-primary':'label-danger'">Package Type</span>
+                            </label>
+                            <select name="packageType" class="form-control text-right" ng-model="packageType" ng-options="item as item for item in packageTypeList" required ng-disabled="submitForm">
+                                <option value="">------Package Type------</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="pipelineOwner">
+                                <span class="label label-primary" ng-class="parameter2.pipelineOwner.$valid?'label-primary':'label-danger'">Pipeline Owner</span>
+                            </label>
+                            <input class="form-control" name="pipelineOwner" type="text" placeholder="pipeline Owner不可为空,多个Owner用分号（;）分隔" required ng-model="pipelineOwner" ng-disabled="submitForm"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div>Node List</div>
+            <div><button class="btn btn-primary" ng-class="nodeList.length >0 ? 'btn-primary' : 'btn-danger'" ng-if="showBtn" ng-click="addNodeForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;Add Node</button></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover">
+                        <tr ng-if="nodeList.length > 0">
+                            <th>JobName</th>
+                            <th>JobURL</th>
+                            <th>NodeType</th>
+                            <th>Next</th>
+                            <th>TestType</th>
+                            <th>MailList</th>
+                        </tr>
+                        <tr ng-repeat="node in nodeList">
+                            <td><a href="javascript:void(0)" editable-text="node.name" e-required>{{ node.name }}</a></td>
+                            <td><a href="javascript:void(0)" editable-text="node.job_url" e-required>{{ node.job_url }}</a></td>
+                            <td><a href="javascript:void(0)" editable-text="node.type" e-required>{{ node.type }}</a></td>
+                            <td><a href="javascript:void(0)" editable-text="node.start_next_node" e-required>{{ node.start_next_node }}</a></td>
+                            <td><a href="javascript:void(0)" editable-text="node.test_type" e-required>{{ node.test_type }}</a></td>
+                            <td><a href="javascript:void(0)" editable-text="node.notification_mail" e-required>{{ node.notification_mail }}</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="showNodeForm">
+                <div class="panel-body">
+                    <form name="parameter3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label for="jobUrl">
+                                        <span class="label" ng-class="parameter3.jobUrl.$valid?'label-primary':'label-danger'">Jenkin Job URL</span>
+                                    </label>
+                                    <input class="form-control" name="jobUrl" type="text" placeholder="Jenkins JOB URL 不可为空" required ng-model="jobUrl"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="jobName">
+                                        <span class="label label-primary" ng-class="parameter3.jobName.$valid?'label-primary':'label-danger'">Jenkin Job Name</span>
+                                    </label>
+                                    <input class="form-control" name="jobName" type="text" placeholder="Jenkins JOB Name 不可为空" required ng-model="jobName" ng-disabled="submitForm"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="nodesType">
+                                        <span class="label label-primary" ng-class="parameter3.nodesType.$valid?'label-primary':'label-danger'">Node Type</span>
+                                    </label>
+                                    <select name="nodesType" class="form-control text-right" ng-model="nodesType" ng-options="item as item for item in nodeTypeList" required ng-disabled="submitForm">
+                                        <option value="">------Node Type------</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="start_next_node">
+                                        <span class="label label-primary" >Start Next Node Type</span>
+                                    </label>
+                                    <select name="start_next_node" class="form-control text-right" ng-model="start_next_node" ng-options="item as item for item in testTypeList" ng-disabled="submitForm">
+                                        <option value="">------start_next_node------</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="testType">
+                                        <span class="label label-primary">Test Type</span>
+                                    </label>
+                                    <select name="testType" class="form-control text-right" ng-model="testType" ng-options="item as item for item in testTypeList" ng-disabled="submitForm">
+                                        <option value="">------Test Type------</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="mailList">
+                                        <span class="label label-primary" ng-class="parameter3.mailList.$valid?'label-primary':'label-danger'">Notification Mail List</span>
+                                    </label>
+                                    <input class="form-control" name="mailList" type="text" placeholder="Notification Mail List不可为空(eg:dev_group;op_group)" required ng-model="mailList" ng-disabled="submitForm"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1 col-md-offset-9 text-right">
+                                    <button type="button" class="btn btn-danger" ng-click="cancelAdd()">取消</button>
+                                </div>
+                                <div class="col-md-1 text-left">
+                                    <button type="button" ng-disabled="!parameter3.$valid" class="btn btn-primary" ng-click="addNode()">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span ng-if="showErrorMessage" style="color:red">{{errorMessage}}&nbsp;&nbsp;</span>
+            <button type="button" class="btn btn-danger" ng-click="closeThisDialog()">取消</button>
+            <button type="button" class="btn btn-primary" ng-click="toFirstStep()" ng-if="!firstStep">上一步</button>            
+            <button type="button" class="btn btn-primary" ng-click="toSecondStep()" ng-if="!secondStep" ng-disabled="!parameter.$valid">下一步</button>
+            <button type="button" class="btn btn-primary" ng-click="createModule(!parameter.$valid,!parameter2.$valid) || closeThisDialog()">完成</button>
+        </div>
+    </div>
+</div>

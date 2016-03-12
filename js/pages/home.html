@@ -1,0 +1,103 @@
+<div class="panel panel-primary" ng-controller="homeCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">全配置管理平台</h3>
+    </div>
+    <div class="panel-body" ng-init="getStatistics()">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="row col-md-12">
+                    <h3 align="center">
+                        {{dataNew.year}}模块上线与回滚统计
+                    </h3>
+                    <h5 align="center">
+                        <div class="label label-success">截止至目前</div>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row" ng-if="showSpinner">
+                                        <div spinner-loading></div>
+                                    </div>
+                                    <h1 align="center">{{dataNew.total_release}}</h1>
+                                    <div class="col-md-12 label label-primary">
+                                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;online
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row" ng-if="showSpinner">
+                                        <div spinner-loading></div>
+                                    </div>
+                                    <h1 align="center">{{dataNew.total_rollback}}</h1>
+                                    <div class="col-md-12 label label-danger">
+                                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>&nbsp;&nbsp;rollback
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row col-md-12">
+                    <h3 align="center">
+                        {{dataOld.year}}模块上线与回滚统计
+                    </h3>
+                    <h5 align="center">
+                        <div class="label label-default">截止至{{dataOld.year}}.12</div>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row" ng-if="showSpinner">
+                                        <div spinner-loading></div>
+                                    </div>
+                                    <h1 align="center">{{dataOld.total_release}}</h1>
+                                    <div class="col-md-12 label label-primary">
+                                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>&nbsp;&nbsp;online
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row" ng-if="showSpinner">
+                                        <div spinner-loading></div>
+                                    </div>
+                                    <h1 align="center">{{dataOld.total_rollback}}</h1>
+                                    <div class="col-md-12 label label-danger">
+                                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>&nbsp;&nbsp;rollback
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <canvas id="bar" class="chart chart-bar" data="dataChartOnline" series="seriesOnline" labels="labels" legend="true"></canvas>
+                <canvas id="bar" class="chart chart-bar" data="dataChartRollback" series="seriesRollback" labels="labels" legend="true"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron text-center">
+    <h1>全配置管理平台</h1>
+    <p>全配置管理平台提供如下<span class="text-danger">支持</span>：</p>
+    <a class="btn btn-primary">Pipeline Job</a>
+    <a class="btn btn-warning">SCM Wiki</a>
+    <a class="btn btn-success">Jenkins</a>
+    <a class="btn btn-info">Git/SVN</a>
+    <a class="btn btn-danger">Quickbuild</a>
+</div>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Git Overview</title>
+</head>
+<body>
+<div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="3gld" id="git-overview">Git Overview</h1><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="i5dd"><ol class="linenums"><li class="L0"><code><span class="pun">以下内容编写的环境是：</span></code></li><li class="L1"><code><span class="pun">操作系统：</span><span class="typ">Ubuntu</span><span class="pln"> </span><span class="lit">15.04</span><span class="pln"> amd64</span></code></li><li class="L2"><code><span class="pln">git</span><span class="pun">版本：</span><span class="pln">git version </span><span class="lit">2.1</span><span class="pun">.</span><span class="lit">4</span></code></li><li class="L3"><code><span class="pln">tig</span><span class="pun">版本：</span><span class="pln">tig version </span><span class="lit">2.0</span><span class="pun">.</span><span class="lit">2</span></code></li><li class="L4"><code></code></li><li class="L5"><code><span class="pun">我的个人信息：</span></code></li><li class="L6"><code><span class="pun">樊星</span><span class="pln"> fanxing1@staff</span><span class="pun">.</span><span class="pln">weibo</span><span class="pun">.</span><span class="pln">com</span></code></li><li class="L7"><code><span class="pun">微博</span><span class="pln"> </span><span class="lit">@star_fx27</span><span class="pln"> </span><span class="pun">座机</span><span class="pln"> </span><span class="lit">8292</span></code></li></ol></pre><div class="md-section-divider"></div><h2 data-anchor-id="9xns" id="0程序员的一天">0.程序员的一天</h2><ul data-anchor-id="t9ji">
+<li>早上来到公司打开电脑获取最新的代码 <code>git pull</code></li>
+<li>开始一天的开发 <code>vim ...</code></li>
+<li>添加一些修改到下一次提交的暂存区 <code>git add &lt;some-file&gt;</code></li>
+<li>提交在暂存区中的修改 <code>git commit -m "&lt;commit-message&gt;"</code></li>
+<li>推送到远端仓库 <code>git push &lt;remote&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;</code></li>
+<li>当然，一切不会这么简单和顺利，还有很多复杂的场景。。。</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="m7x3" id="1安装">1.安装</h2><div class="md-section-divider"></div><h3 data-anchor-id="gccn" id="linux">Linux</h3><ul data-anchor-id="5m71">
+<li><strong>redhat</strong> - <code>sudo yum install git</code></li>
+<li><strong>debain</strong> - <code>sudo apt-get install git</code></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="pb7c" id="mac">Mac</h3><ul data-anchor-id="brwu">
+<li><strong>homebrew</strong> - <code>brew install git</code></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="q9ac" id="windows">Windows</h3><ul data-anchor-id="3ybx">
+<li><strong>msysgit</strong> - <a href="http://msysgit.github.io/" target="_blank">msysgit官网</a></li>
+<li><strong>cygwin</strong> - <a href="http://www.cygwin.com/" target="_blank">cygwin官网</a></li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="tq9g" id="2配置">2.配置</h2><blockquote data-anchor-id="kc7s" class="white-blockquote">
+  <p>使用 <code>git config</code> 命令来完成所有的配置</p>
+</blockquote><div class="md-section-divider"></div><h3 data-anchor-id="l63c" id="概念">概念</h3><ul data-anchor-id="yzlu">
+<li>system - 作用于整个系统</li>
+<li>global - 作用于当前用户</li>
+<li>local - 作用于当前项目</li>
+</ul><table data-anchor-id="3kgk" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>作用域</th>
+ <th>配置文件</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>system</td>
+ <td>/etc/gitconfig</td>
+</tr>
+<tr>
+ <td>global</td>
+ <td>~/.gitconfig</td>
+</tr>
+<tr>
+ <td>local</td>
+ <td>.git/config</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="5ytk" id="基础配置">基础配置</h3><ul data-anchor-id="iv8r">
+<li><code>git config --global user.name "&lt;user-name&gt;"</code></li>
+<li><code>git config --global user.email "&lt;email-address&gt;"</code></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="jwi2" id="别名配置">别名配置</h3><ul data-anchor-id="8c61">
+<li><code>git config --global alias.ci commit</code></li>
+<li><code>git config --global alias.co checkout</code></li>
+<li><code>git config --global alias.br branch</code></li>
+<li><code>git config --global alias.st status</code></li>
+<li><code>git config --global alias.unstage 'reset HEAD --'</code></li>
+<li><code>git config --global alias.last 'log -1 HEAD'</code></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="n9qo" id="crlf配置">CRLF配置</h3><blockquote data-anchor-id="fwg4" class="white-blockquote">
+  <p>世界上最通用的纯文本编码方式是： <br>
+  - UTF-8 无 BOM <br>
+  - Unix 风格换行符（LF） <br>
+  所以最推荐的git关于CRLF的配置为： <br>
+  - core.autocrlf false <br>
+  - core.safecrlf true</p>
+</blockquote><div class="md-section-divider"></div><h4 data-anchor-id="tjhs" id="coreautocrlf">core.autocrlf</h4><table data-anchor-id="sv80" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>选项</th>
+ <th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>true</td>
+ <td>检出时转换为CRLF，提交时转换为LF</td>
+</tr>
+<tr>
+ <td>input</td>
+ <td>检出时不转换，提交时转换为LF</td>
+</tr>
+<tr>
+ <td>false</td>
+ <td>提交检出时均不转换</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h4 data-anchor-id="bvhu" id="coresafecrlf">core.safecrlf</h4><table data-anchor-id="0yzn" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>选项</th>
+ <th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>true</td>
+ <td>拒绝提交包含混合换行符的文件</td>
+</tr>
+<tr>
+ <td>false</td>
+ <td>允许提交包含混合换行符的文件</td>
+</tr>
+<tr>
+ <td>warn</td>
+ <td>提交包含混合换行符的文件时给出警告</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="o0u9" id="diff和merge配置">diff和merge配置</h3><ul data-anchor-id="lmbl">
+<li><code>git config --global core.editor vim|emacs</code> 默认调用的编辑器</li>
+<li><code>git config --global diff.tool p4merge</code> 默认使用的外部diff工具</li>
+<li><code>git config --global difftool.p4merge.cmd &lt;path-to-p4merge&gt; \$LOCAL \$REMOTE</code> difftool使用的外部工具路径</li>
+<li><code>git config --global merge.tool p4merge</code> 默认使用的外部merge工具</li>
+<li><code>git config --global mergetool.p4merge.cmd &lt;path-to-p4merge&gt; \$BASE \$LOCAL \$REMOTE \$MERGED</code> mergetool使用的外部工具路径</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="jenk" id="用户名密码配置">用户名密码配置</h3><ul data-anchor-id="rrty">
+<li><code>git config --global credential.helper store</code> 这将会在 <code>~/.gitcredentials</code> 文件中保存每一个访问过的库的用户名和密码（明文）</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="lmc5" id="3基础使用">3.基础使用</h2><ol data-anchor-id="f1pd">
+<li>git init</li>
+<li>git clone</li>
+<li>git add <br>
+<ul><li>将一个文件添加到git的track中</li>
+<li>将一个已经track的文件添加到暂存区</li>
+<li>将一个冲突的文件标记为冲突解决</li>
+<li>git add -p 交互式的添加修改到暂存区</li></ul></li>
+<li>git status</li>
+<li>git diff <br>
+<ul><li>git diff 查看工作区到暂存区的修改</li>
+<li>git diff --cached | --staged 暂存区到最新的提交的修改</li></ul></li>
+<li>git commit <br>
+<ul><li>git commit -a 在执行提交前运行 git add -A</li>
+<li>git commit --amend 反悔上一次的提交</li></ul></li>
+<li>git reset</li>
+<li>git rm <br>
+<ul><li>git rm 在文件系统中删除文件同时在git中删除文件</li>
+<li>git rm --cached 在git中删除文件的同时保留文件系统中的文件</li></ul></li>
+<li>git mv</li>
+<li>git branch <br>
+<ul><li>git branch --track 设置本地分支追踪远端分支</li></ul></li>
+<li>git checkouot <br>
+<ul><li>git checkout -b 直接新建一个分支然后切换到该分支</li></ul></li>
+<li>git merge <br>
+<ul><li>git merge --no-ff 强制产生merge-commit而不是默认的fast-forward</li></ul></li>
+<li>git rebase <br>
+<ul><li>git rebase -i 可以压缩多个commit为一个commit</li></ul></li>
+<li>git push <br>
+<ul><li>git push -u 建立本次推送的本地分支和远端分支间的track</li></ul></li>
+<li>git pull</li>
+<li>git fetch</li>
+<li>git tag <br>
+<ul><li>git tag -a 建立带附注的标签</li></ul></li>
+<li>git stash</li>
+<li>git blame</li>
+</ol><div class="md-section-divider"></div><h2 data-anchor-id="lsgw" id="4gui工具">4.GUI工具</h2><div class="md-section-divider"></div><h3 data-anchor-id="bs8b" id="tig">tig</h3><p data-anchor-id="id0e">tig是基于命令行的开源图形化git工具，提供对git库的全方位浏览，<a href="http://jonas.nitro.dk/tig/" target="_blank">官方网站</a>,<a href="https://github.com/jonas/tig" target="_blank">github地址</a></p><div class="md-section-divider"></div><h3 data-anchor-id="0fph" id="sourcetree">sourcetree</h3><p data-anchor-id="6vq6">sourcetree是Atlassian公司开发的免费git工具，提供对git的图形化操作支持， <a href="https://www.sourcetreeapp.com/" target="_blank">官方网站</a></p><div class="md-section-divider"></div><h3 data-anchor-id="vqyg" id="tortoisegit">tortoisegit</h3><p data-anchor-id="odz6">tortoisegit是windows上常见的git图形化工具，提供对git的图形化操作支持，<a href="https://tortoisegit.org/" target="_blank">官方网站</a>,<a href="https://github.com/TortoiseGit/TortoiseGit" target="_blank">github地址</a></p><div class="md-section-divider"></div><h3 data-anchor-id="5g68" id="jetbrains旗下ide">jetbrains旗下IDE</h3><p data-anchor-id="8h6p">jetbrains公司旗下的所有IDE都默认集成了git的图形化支持</p><div class="md-section-divider"></div><h3 data-anchor-id="5z3f" id="eclipse插件egit">eclipse插件egit</h3><p data-anchor-id="nv7w">egit是eclipse官方支持的git插件，在eclipse juno(4.2)以后的版本中已经默认安装，<a href="http://www.eclipse.org/egit/" target="_blank">官方网站</a></p><div class="md-section-divider"></div><h2 data-anchor-id="0wb1" id="other">other</h2><p data-anchor-id="3exb"><a href="http://git-scm.com/downloads/guis" target="_blank">GUI Clients</a></p><div class="md-section-divider"></div><h2 data-anchor-id="h331" id="5一些资源">5.一些资源</h2><ul data-anchor-id="8b41">
+<li><a href="http://www.git-scm.com/book/en/v2/" target="_blank">Pro Git</a></li>
+<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank">图解Git</a></li>
+<li><a href="https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf" target="_blank">Git Cheatsheet</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank">Git workflow</a></li>
+<li><a href="https://github.com/github/gitignore" target="_blank">Gitignore</a></li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="dq3o" id="6-获得帮助">6. 获得帮助</h2><p data-anchor-id="ta4f">以下三条命令可以在终端中获得帮助</p><ul data-anchor-id="wvuy">
+<li>git help [sub-command]</li>
+<li>git [sub-command] --help</li>
+<li>man git-[sub-command]</li>
+</ul><p data-anchor-id="xwym">还有一些可以获得帮助的网站</p><ul data-anchor-id="l2zg">
+<li><a href="http://git-scm.com/docs" target="_blank">git-offical-doc</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/git" target="_blank">stack-over-flow</a></li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="1g0v" id="finally">Finally</h2><p data-anchor-id="kyku">最后，开始体验git吧，公司内网已经有基于开源项目<a href="https://github.com/gitlabhq/gitlabhq" target="_blank">gitlab</a>搭建的git服务器(<a href="http://git.intra.weibo.com/" target="_blank">http://git.intra.weibo.com/</a>)，你可以在上边托管你的项目。或者，你可以直接去<a href="https://github.com" target="_blank">github</a>上开始你的git旅途。。。</p>
+</body>
+</html>

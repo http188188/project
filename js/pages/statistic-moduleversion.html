@@ -1,0 +1,102 @@
+<div class="panel panel-primary" ng-controller="moduleVersionCtrl">
+    <div class="panel-heading">
+        <h3 class="panel-title">所有模块当前线上版本</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-7">
+                <form ng-submit="getModuleVersionList(pageCount,1,currentCategory)">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchContent" class="form-control" placeholder="搜索关键字">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;搜索</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 col-md-1-t text-right">
+                <h6><strong>每页显示</strong></h6>
+            </div>
+            <div class="col-md-1 col-md-1-t">
+                <select class="form-control" ng-model="pageCount" ng-options="item as item for item in pageCountList" ng-change="getModuleVersionList(pageCount, 1, currentCategory)">
+                    <option value=''>All</option>
+                </select>
+            </div>
+            <div class="col-md-1 col-md-1-t text-right"><button class="btn btn-primary" ng-click="getModuleVersionList(pageCount,currentPage,currentCategory)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;刷新</button></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" ng-init="getCategory()">
+                <div class="btn-group btn-group-md" role="group" style="margin-bottom: 5px;">
+                    <button type="button" ng-repeat="button in category" class="btn btn-{{categoryStyle[getIndex(button.id)]}}" ng-click="getCategoryList(button.id)">{{button.name}}</button>
+                    <button type="button" class="btn btn-primary" ng-click="getModuleVersionList(pageCount, 1, '')">全部</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7" ng-init="getModuleVersionList(pageCount, 1, currentCategory)">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="info">
+                            <th>ID</th>
+                            <th>模块名称</th>
+                            <th>上线时间</th>
+                            <th>操作人</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in moduleVersionList" ng-click="getModuleData(item)" onclick="javascript:void(0);">
+                            <td>{{item.id}}</td>
+                            <td><strong>{{item.name}}</strong></td>
+                            <td>{{item.update_version_time}}</td>
+                            <td>{{item.operator}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row loading" ng-if="showSpinner">
+                    <div spinner-loading></div>
+                </div>
+                <div class="row col-md-10 col-md-offset-5" ng-if="totalNum == 0">
+                    <h5><strong>-----无记录-----</strong></h5>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="chart">
+                    <h4>{{moduleName}}</h4>
+                    <div ng-if="showChart">当前线上版本:</div>
+                    <div class="label label-success">{{moduleVersion}}</div>
+                    <canvas id="bar" class="chart chart-bar" data="dataChart" series="series" labels="labels" legend="true"></canvas>
+                    <div ng-if="showChart" align="center">{{year}}年共计上线<span class="label label-primary">{{onlineTime}}</span>次,回滚<span class="label label-danger">{{rollbackTime}}</span>次</div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-2 col-md-offset-5 text-right">
+                <h6><strong>共计<font color="red">{{totalNum}}</font>条记录</strong></h6>
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <ul class="pagination" ng-if="pages > 1">
+                <li class="{{disablePre()}}"><a href="javascript:void(0)" ng-click="preBtn && getModuleVersionList(pageCount,1,currentCategory)"><span aria-hidden="true"><strong>第一页</strong></span></a></li>
+                <li ng-repeat="item in pageNumbers track by $index" ng-class="getActivePage(item)"><a href="javascript:void(0)" ng-click="currentPage != item && getModuleVersionList(pageCount,item,currentCategory)"><strong>{{item}}</strong></a></li>
+                <li class="{{disableNext()}}"><a href="javascript:void(0)" ng-click="nextBtn && getModuleVersionList(pageCount,pages,currentCategory)"><span aria-hidden="true"><strong>最后一页</strong></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function () {
+    var ie6 = document.all;
+    var dv = $('#chart'), st;
+    dv.attr('otop', dv.offset().top);
+    $(window).scroll(function () {
+        st = Math.max(document.body.scrollTop || document.documentElement.scrollTop);
+        if (st > parseInt(dv.attr('otop'))) {
+            if (ie6) {
+                dv.css({ position: 'absolute', top: st });
+            }
+            else if (dv.css('position') != 'fixed') dv.css({ 'position': 'fixed', top: 0 });
+            } else if (dv.css('position') != 'static') dv.css({ 'position': 'static' });
+        });
+    });
+</script>

@@ -1,0 +1,81 @@
+<div class="panel-body">
+    <div class="row col-md-12">
+        <div class="x_panel">
+                <div class="x_title">
+                    <h2>代码统计查询 <small>{{moduleType}}</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                
+                <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left" ng-submit="getModuleCodeList()">                      
+                        <div class=" form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Time <span class="required">*</span>
+                            </label>
+                            <div class="  col-md-6 col-sm-6 col-xs-12">
+                                <input class=" date form_datetime form-control col-md-7 col-xs-12" ng-model="time.start" required="required" type="text"  placeholder="XXXX-XX-XX">
+                                <span class="add-on"><i class="icon-remove"></i></span>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">End Time <span class="required">*</span>
+                            </label>
+                            <div class=" col-md-6 col-sm-6 col-xs-12">
+                                <input  class="form_datetime form-control col-md-7 col-xs-12" ng-model="time.end" required="required" type="text" placeholder="XXXX-XX-XX">
+                                <script type="text/javascript">
+                                    $(".form_datetime").datetimepicker({
+                                        format: "yyyy-mm-dd hh:ii",
+                                        autoclose: true,
+                                        todayBtn: true,
+                                        startDate: "1990-02-14 10:00",
+                                        minuteStep: 10
+                                        pickerPosition
+
+
+                                    });
+                                </script> 
+                            </div>
+
+                        </div>
+                      
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>        
+        <table  class="table table-striped jambo_table col-md-3">
+            <thead>
+                <tr class="headings" >
+                    <th class="column-title">Name</th>
+                    <th class="column-title">总提交数</th>
+                    <th class="column-title">代码增加数</th>
+                    <th class="column-title">代码减少数</th>
+                </tr>                        
+            </thead>
+            <tbody>
+                <tr class="pointer" ng-repeat="item in moduleCodeList" onclick="javascript:void(0);">
+                    <td class="" align="middle">{{item.name}}</td>
+                    <td align="middle"><strong>{{item.changes.git[0].commit}}</strong></td>
+                    <td align="middle"><strong>{{item.changes.git[0].add}}</strong></td>
+                    <td align="middle"><strong>{{item.changes.git[0].del}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+

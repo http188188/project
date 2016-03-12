@@ -1,0 +1,25 @@
+<div class="panel {{getStyleOfPanel(currentNode.status)}}">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{logName}}-Log</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-pills">
+            <li role="presentation" ng-click="selectLog('build') ||refreshLog(currentNode.job_log_url)" ng-class="getActiveLog('build')"><a href="javascript:void(0);">Build Log</a></li>
+            <li role="presentation" ng-class="getActiveLog('test')" ng-if="currentNode.preview_test_result_url != '' && currentNode.preview_test_result_url != null" ng-click="selectLog('test') || refreshLog(currentNode.preview_test_result_url)"><a href="javascript:void(0);">Test Report</a></li>
+            <li role="presentation" ng-class="getActiveLog('diff')" ng-if="currentNode.code_diff != '' && currentNode.code_diff != null" ng-click="selectLog('diff') || refreshLog(currentNode.code_diff)"><a href="javascript:void(0);">Code Diff</a></li>
+            <li role="presentation" ng-class="getActiveLog('comments')" ng-if="currentNode.comments != '' && currentNode.comments != null" ng-click="selectLog('comments') || refreshLog(currentNode.comments)"><a href="javascript:void(0);">Comments</a></li>
+        </ul>
+        <div class="logcontent">
+            <div><pre ng-if="!checkLogType()">{{logContent}}<pre></div>
+            <div ng-if="checkLogType()" ng-bind-html="deliberatelyTrustDangerousSnippet(logContent)"></div>
+        </div>
+        <div class="row loading" ng-if="loadLogDone">
+            <div spinner-loading></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <span ng-if="loadLogDone">加载中...&nbsp;&nbsp;</span>
+        <button type="button" ng-if="currentNode.status == 'on-going'" class="btn btn-primary" ng-click="refreshLog(currentLog == 'build' ? currentNode.job_log_url : currentNode.preview_test_result_url)">刷新</button>
+        <button type="button" class="btn btn-danger" ng-click="closeThisDialog()">关闭</button>
+    </div>
+</div>

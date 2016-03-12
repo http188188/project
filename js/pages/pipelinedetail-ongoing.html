@@ -1,0 +1,51 @@
+<div class="panel-body">
+    <div ng-if="data.showMessage">
+        <p><font color="red">此Pipeline未创建！</font></p>
+    </div>
+    <div ng-if="data.exist">
+        <form name="parameter">
+            <div ng-include="warOrSource()"></div>
+            <div class="row" ng-if="false">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="comments"><span class="label label-primary">注释</span></label>
+                        <textarea rows=5 class="form-control" id="comments" placeholder="注释，可以为空" ng-model="data.comments" ng-disabled="data.disableStart"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="flow">流程</label>
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col-md-1">
+                <div class="row row-c">
+                    <span id="startBtn" class="label label-{{nodeStatus[pipelineStatus.status].style}}">{{nodeStatus[pipelineStatus.status].start}}</span>
+                </div>
+                <div class="row">
+                    <a href="javascript:void(0);" ng-click="startPipeline(parameter.$valid)"><img ng-src="{{baseUrl}}images/pipeline_{{startImg(parameter.$valid)}}.png" /></a>
+                </div>
+            </div>
+            
+            <div ng-include="'js/pages/flow.html'"></div>
+
+            <div class="col-md-1 col-md-1-s" ng-class="endNodePosition()">
+                <div class="row row-s">
+                    <img width="40px" ng-src="{{baseUrl}}images/to_{{endStatus()}}.png" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="row row-c"><span class="label label-warning">结束</span></div>
+                <div class="row"><img ng-src="{{baseUrl}}images/pipeline_{{pipelineStatus.status}}.png" /></div>
+            </div>
+        </div>
+
+        <div class="row col-md-12" ng-include="'js/pages/testbox.html'"></div>
+    </div>
+    <div class="row loading" ng-if="showSpinner">
+        <div spinner-loading></div>
+    </div>
+</div>

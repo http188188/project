@@ -1,0 +1,14 @@
+<div alert-box="danger" message="formOfTag" ng-if="showAlert.formOfTag"></div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group">
+            <label for="version">
+                <span class="label label-primary" ng-class="parameter.version.$valid?'label-primary':'label-danger'">Version</span>
+            </label>
+            <input class="form-control" id="version" name="version" type="text" placeholder="version，不可为空" disabled required ng-model="data.rollbackVersion" ng-if="rollbackParams()"/>
+            <select name="version" id="version" ng-init="getRollbackVersioinList(moduleId)" class="form-control" ng-model="data.rollbackVersion" ng-options="item.version as item.version for item in versionList" ng-if="!rollbackParams()" required ng-disabled="data.disableStart">
+                <option value="">----------------------请选择回滚版本----------------------</option>
+            </select>
+        </div>
+    </div>
+</div>

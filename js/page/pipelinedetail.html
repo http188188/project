@@ -1,0 +1,23 @@
+<div ng-controller="pipelineDetailCtrl">
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp&nbsp<a ui-sref="{{pipelineDetailState}}"><strong>{{piplelineTitle[pipelineDetailState]}}</strong></a></li>
+        <li class="active">{{pipelineName}}</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation" ng-class="getMenuActive(item)" ng-repeat="item in detailMenu"><a ui-sref="{{item.url}}" ng-click="select(item)">{{item.name}}</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="presentation" align="right"><strong>当前线上模块版本:</strong></div>
+            <div class="presentation" align="right"><strong><font color="blue" >{{moduleVersion}}</font></strong></div>
+        </div>
+    </div>
+
+        <div class="panel panel-default">
+            <div ui-view>
+                <div ng-include="'js/pages/pipelinedetail-ongoing.html'"></div>
+            </div>
+        </div>
+</div>
