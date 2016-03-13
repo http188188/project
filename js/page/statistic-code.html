@@ -69,7 +69,7 @@
             <tbody>
                 <tr class="pointer" ng-repeat="item in moduleCodeList" onclick="javascript:void(0);">
                     <td class="" align="middle">{{item.name}}</td>
-                    <td align="middle"><strong>{{item.changes.git[0].commit}}</strong></td>
+                    <td align="middle"><strong>{{item.changes.git[0].commit || item.changes.svn[0].commit}}</strong></td>
                     <td align="middle"><strong>{{item.changes.git[0].add}}</strong></td>
                     <td align="middle"><strong>{{item.changes.git[0].del}}</strong></td>
                 </tr>
